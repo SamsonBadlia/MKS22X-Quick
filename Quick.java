@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Quick{
 
   public static void main(String[] args){
@@ -14,39 +16,45 @@ public class Quick{
 
   public static int quickselect(int [] data, int k){
 
-    int pivotIndex = data.length;
+    int pivot = data.length;
     int start = 0;
-    int end = data.length - 1; // inclusive
+    int end = data.length - 1;
 
-    while(pivotIndex != k){
-        pivotIndex = partition(data, start, end);
-        if(pivotIndex > k){
-            end = pivotIndex - 1;
-        }else if(pivotIndex < k){
-            // minus one because start is inclusive and we know the pivotIndex is not the solution
-            start = pivotIndex + 1;
+    while(pivot != k){
+        pivot = partition(data, start, end);
+        if(pivot > k){
+          return partition(data,start,pivot-1);
+        }else if(pivot < k){
+            return partition(data,pivot+1,end);
         }
     }
 
-    return data[pivotIndex];
+    return data[pivot];
   }
 
   public static int partition(int [] data, int start, int end){
         if(end == start) return start;
 
-        int pivotIndex = ((int)(Math.random() * 10) % (end + 1 - start)) + start;
-        int pivot = data[pivotIndex];
-        int temp = data[pivotIndex];
-        data[pivotIndex] = data[start];
+        int randPivot;
+        if (data[start] < data[end] && data[start] > data[data.length / 2]) randPivot = data[start];
+        else if (data[start] > data[end] && data[start] < data[data.length / 2]) randPivot = data[start];
+        else if (data[end] < data[start] && data[end] > data[data.length / 2]) randPivot = data[end];
+        else if (data[end] > data[start] && data[end] < data[data.length / 2]) randPivot = data[end];
+        else if (data[data.length / 2] < data[end] && data[data.length / 2] > data[start]) randPivot = data[data.length / 2];
+        else randPivot = data[data.length / 2];
+        int pivot = data[randPivot];
+        int temp = data[pivot];
+        data[pivot] = data[start];
         data[start] = temp;
-        pivotIndex = start;
+        pivot = start;
         start++;
 
         while(start != end){
             int current = data[start];
             if(current < pivot){
                 start++;
-            }else{
+            }
+            else{
                 temp = data[start];
                 data[start] = data[end];
                 data[end] = temp;
@@ -55,15 +63,25 @@ public class Quick{
         }
 
         if(pivot > data[start]){
-          temp = data[pivotIndex];
-          data[pivotIndex] = data[start];
+          temp = data[pivot];
+          data[pivot] = data[start];
           data[start] = temp;
             return start;
-        }else{
-            temp = data[pivotIndex];
-            data[pivotIndex] = data[start-1];
+        }
+        else if (pivot == data[start]){
+          Random random = new Random();
+          int chance = random.nextInt() % 2 ;
+          if (chance == 1){
+            temp = data[pivot];
+            data[pivot] = data[start];
+            data[start] = temp;
+          }
+        }
+        else{
+            temp = data[pivot];
+            data[pivot] = data[start-1];
             data[start-1] = temp;
             return start - 1;
         }
-    }
+      }
 }
