@@ -2,6 +2,10 @@ import java.util.*;
 
 public class Quick{
 
+  public static void main(String[] args) {
+
+  }
+
   public static int quickselect(int [] data, int k){
 
     int pivot = data.length;
@@ -21,7 +25,7 @@ public class Quick{
   }
 
   public static void quicksort(int[] data){
-    if (data.length > 0) quickSortH(data,0,data.length);
+    if (data.length > 0) quickSortH(data,0,data.length-1 );
   }
 
   public static void quickSortH(int[] data, int lo, int hi){
@@ -34,6 +38,7 @@ public class Quick{
   public static int partition(int [] data, int start, int end){
       if (start < 0 && end >= data.length) return start;
       if (start == end) return start;
+      //if (data.length == 0) return 0;
 
       int pivot = data[start];
       swap(data,start,pivot);
@@ -50,7 +55,7 @@ public class Quick{
         }
       }
 
-      for(int i = start+1; i < end + 1; i++){
+      for(int i = start + 1 ; i < end + 1; i++){
         if(data[i] > data[pivot]){
           swap(data, i-1 , pivot);
           return i - 1;
