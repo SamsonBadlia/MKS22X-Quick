@@ -3,7 +3,7 @@ import java.util.*;
 public class Quick{
 
   public static void main(String[]args){
-    System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
+    System.out.println("Size\t\tMax pivotue\tquick/builtin ratio ");
     int[]MAX_LIST = {1000000000,500,10};
     for(int MAX : MAX_LIST){
       for(int size = 31250; size < 2000001; size*=2){
@@ -19,7 +19,7 @@ public class Quick{
           }
           long t1,t2;
           t1 = System.currentTimeMillis();
-          Quick.quicksort(data2);
+          Quick.quicksortDutch(data2);
           t2 = System.currentTimeMillis();
           qtime += t2 - t1;
           t1 = System.currentTimeMillis();
@@ -60,11 +60,74 @@ public class Quick{
     else quickSortH(data,0,0);
   }
 
+  public static void quicksortDutch(int[] data){
+    if (data.length >= 0) quickSortD(data,0,data.length-1);
+    else quickSortD(data,0,0);
+  }
+
+  public static void quickSortD(int[] data, int lo, int hi){
+    if (lo >= hi) return;
+    int[] indexes = partitionDutch(data, lo, hi);
+    int lowerIndex = indexes[0];
+    int higherIndex = indexes[1];
+    quickSortD(data,lo,lowerIndex);
+    quickSortD(data,higherIndex,hi);
+  }
+
   public static void quickSortH(int[] data, int lo, int hi){
     if (lo >= hi) return;
     int pivot = partition(data , lo , hi);
     quickSortH(data ,lo , pivot - 1);
     quickSortH(data , pivot + 1 , hi);
+  }
+
+  public static int[] partitionDutch(int[] data, int start, int end) {
+      int[] arr = new int[2];
+      if (end == start || end <= 0) {
+          return new int[]{start, end};
+      }
+      int pivotIndex;
+      int mid = (start + end) / 2;
+      if(data[start] > data[mid]){
+          if(data[mid] > data[end]){
+              pivotIndex = mid;
+          }else if(data[start] > data[end]){
+               pivotIndex = end;
+          }else{
+              pivotIndex = start;
+          }
+      }else{
+          if(data[start] > data[end]){
+              pivotIndex = start;
+          }else if(data[mid] > data[end]){
+              pivotIndex = end;
+          }else{
+              pivotIndex = mid;
+          }
+      }
+      //lIndex and rIndex are the bounds and counter goes through the array
+      int pivot = data[pivotIndex];
+      int lIndex = start;
+      int counter = lIndex;
+      int rIndex = end;
+      while(counter <= rIndex){
+          int current = data[counter];
+          //if equal the values stay
+          if (current == pivot) counter++;
+          //if greater then values swap
+          else if (current > pivot) {
+            swap(data, counter, rIndex);
+            rIndex--;
+          } else{
+            //if less values swap
+              swap(data, lIndex, counter);
+              lIndex++;
+              counter++;
+          }
+      }
+      arr[0] = lIndex - 1;
+      arr[1] = rIndex + 1;
+      return arr;
   }
 
   public static int partition(int [] data, int start, int end){
@@ -112,7 +175,7 @@ public class Quick{
     if(pivot > data[start]){
         swap(data, pivotIndex, start);
         return start;
-    }else{
+    } else{
         swap(data, pivotIndex, start - 1);
         return start - 1;
 
