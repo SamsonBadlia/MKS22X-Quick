@@ -19,7 +19,7 @@ public class Quick{
           }
           long t1,t2;
           t1 = System.currentTimeMillis();
-          Quick.quicksortDutch(data2);
+          Quick.quicksort(data2);
           t2 = System.currentTimeMillis();
           qtime += t2 - t1;
           t1 = System.currentTimeMillis();
@@ -37,7 +37,7 @@ public class Quick{
     }
   }
 
-  public static int quickselect(int [] data, int k){
+  /*public static int quickselect(int [] data, int k){
 
     int pivot = data.length;
     int start = 0;
@@ -53,17 +53,17 @@ public class Quick{
     }
 
     return data[pivot];
-  }
+  }*/
 
   public static void quicksort(int[] data){
-    if (data.length >= 0) quickSortH(data,0,data.length-1 );
-    else quickSortH(data,0,0);
-  }
-
-  public static void quicksortDutch(int[] data){
-    if (data.length >= 0) quickSortD(data,0,data.length-1);
+    if (data.length >= 0) quickSortD(data,0,data.length-1 );
     else quickSortD(data,0,0);
   }
+
+  /*public static void quicksortDutch(int[] data){
+    if (data.length >= 0) quickSortD(data,0,data.length-1);
+    else quickSortD(data,0,0);
+  }*/
 
   public static void quickSortD(int[] data, int lo, int hi){
     if (lo >= hi) return;
@@ -84,12 +84,12 @@ public class Quick{
         }
   }
 
-  public static void quickSortH(int[] data, int lo, int hi){
+/*  public static void quickSortH(int[] data, int lo, int hi){
     if (lo >= hi) return;
     int pivot = partition(data , lo , hi);
     quickSortH(data ,lo , pivot - 1);
     quickSortH(data , pivot + 1 , hi);
-  }
+  }*/
 
   public static void insertionSort(int[] data, int start, int end){
       for (int i = start; i <= end; i++) {
@@ -152,7 +152,7 @@ public class Quick{
       return arr;
   }
 
-  public static int partition(int [] data, int start, int end){
+  /*public static int partition(int [] data, int start, int end){
     if(end == start || end <= 0){
         return start;
     }
@@ -202,7 +202,7 @@ public class Quick{
         return start - 1;
 
   }
-}
+}*/
 
     public static void swap(int[] data, int a, int b){
       if ( a < 0 && a > data.length && b < 0 && b > data.length ) return;
