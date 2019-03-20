@@ -67,11 +67,21 @@ public class Quick{
 
   public static void quickSortD(int[] data, int lo, int hi){
     if (lo >= hi) return;
-    int[] indexes = partitionDutch(data, lo, hi);
-    int lowerIndex = indexes[0];
-    int higherIndex = indexes[1];
-    quickSortD(data,lo,lowerIndex);
-    quickSortD(data,higherIndex,hi);
+      else{
+        int[] indexes = partitionDutch(data, lo, hi);
+        int lowerIndex = indexes[0];
+        int higherIndex = indexes[1];
+          if(lowerIndex - lo <= 50) {
+              insertionSort(data, lo, lowerIndex);
+          }else{
+              quickSortD(data, lo, lowerIndex);
+          }
+          if(hi - higherIndex <= 50){
+              insertionSort(data, higherIndex, hi);
+          }else{
+              quickSortD(data, higherIndex, hi);
+          }
+        }
   }
 
   public static void quickSortH(int[] data, int lo, int hi){
@@ -79,6 +89,18 @@ public class Quick{
     int pivot = partition(data , lo , hi);
     quickSortH(data ,lo , pivot - 1);
     quickSortH(data , pivot + 1 , hi);
+  }
+
+  public static void insertionSort(int[] data, int start, int end){
+      for (int i = start; i <= end; i++) {
+          int current = data[i];
+          int c = i;
+          while (c > start && data[c - 1] > current) {
+              data[c] = data[c - 1];
+              c--;
+          }
+          data[c] = current;
+      }
   }
 
   public static int[] partitionDutch(int[] data, int start, int end) {
