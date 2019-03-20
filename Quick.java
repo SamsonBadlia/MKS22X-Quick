@@ -71,12 +71,12 @@ public class Quick{
         int[] indexes = partitionDutch(data, lo, hi);
         int lowerIndex = indexes[0];
         int higherIndex = indexes[1];
-          if(lowerIndex - lo <= 50) {
+          if(lowerIndex - lo <= 25) {
               insertionSort(data, lo, lowerIndex);
           }else{
               quickSortD(data, lo, lowerIndex);
           }
-          if(hi - higherIndex <= 50){
+          if(hi - higherIndex <= 25){
               insertionSort(data, higherIndex, hi);
           }else{
               quickSortD(data, higherIndex, hi);
