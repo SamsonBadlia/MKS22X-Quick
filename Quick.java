@@ -37,7 +37,7 @@ public class Quick{
     }
   }
 
-  /*public static int quickselect(int [] data, int k){
+  public static int quickselect(int [] data, int k){
 
     int pivot = data.length;
     int start = 0;
@@ -53,7 +53,7 @@ public class Quick{
     }
 
     return data[pivot];
-  }*/
+  }
 
   public static void quicksort(int[] data){
     if (data.length >= 0) quickSortD(data,0,data.length-1 );
@@ -152,7 +152,7 @@ public class Quick{
       return arr;
   }
 
-  /*public static int partition(int [] data, int start, int end){
+  public static int partition(int [] data, int start, int end){
     if(end == start || end <= 0){
         return start;
     }
@@ -202,7 +202,7 @@ public class Quick{
         return start - 1;
 
   }
-}*/
+}
 
     public static void swap(int[] data, int a, int b){
       if ( a < 0 && a > data.length && b < 0 && b > data.length ) return;
